@@ -1,0 +1,2 @@
+# flask-calculator
+bitwise calculations
