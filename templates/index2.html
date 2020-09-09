@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Calculator Project</title>
+  <meta name="description" content="Calculator Project">
+  <meta name="author" content="ME!">
+  <style>
+    input { 
+        text-align: right; 
+    }
+  </style>
+</head>
+<body>
+    <div>
+      <input type="text" id="number1" placeholder="1st Number"/>
+    </div>
+    <div>
+      <input type="text" id="number2" placeholder="2nd Number"/>
+    </div>
+    <div>
+      <input type="text" id="resultDecimal" placeholder="Result" readonly/>
+    </div>
+    <div> 
+      <button onclick="addRegisters()" >Add</button>
+    </div>
+
+    <div>
+      <input type="text" id="register1" placeholder="Register 1"/>
+    </div>
+    <div>
+      <input type="text" id="register2" placeholder="Register 2"/>
+    </div>
+    <div>
+      <input type="text" id="resultBinary" placeholder="Binary Result" readonly/>
+    </div>
+    <div> 
+      <button onclick="addRegisters()" >Add</button>
+    </div>
+
+ 
+  <script type="text/javascript">
+      
+      function addRegisters() {
+        var url = "http://localhost:5000/add"
+        var query = "?" + "number1=" + document.getElementById("number1").value + "&number2=" + document.getElementById("number2").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log("returned from server")
+              const json = JSON.parse(this.responseText)
+              document.getElementById("resultBinary").value = json["RESULTBINARY"];
+              document.getElementById("resultDecimal").value = json["RESULTDECIMAL"];
+            }
+        };
+        xhttp.open("GET", url + query, true);
+        xhttp.send();
+      }
+  </script>
+
+</body>
+</html>
